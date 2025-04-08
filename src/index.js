@@ -2,6 +2,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/user.routes');
 const videoRoutes = require('./routes/video.routes');
+const authRoutes = require('./routes/auth.routes');
+const likeRoutes = require('./routes/like.routes');
+const commentRoutes = require('./routes/comment.routes');
 
 dotenv.config();
 
@@ -14,6 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 // Rutas
 app.use('/api/users', userRoutes);
 app.use('/api/videos', videoRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/likes', likeRoutes);
+app.use('/api/comments', commentRoutes);
 
 app.get('/', (req, res) => {
   res.send('Bienvenido a la API de TikTok App');

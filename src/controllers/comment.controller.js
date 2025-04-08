@@ -25,3 +25,12 @@ exports.getCommentsByVideo = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener comentarios' });
   }
 };
+exports.deleteComment = async (req, res) => {
+  const { comment_id } = req.params;
+  try {
+    await db.query('DELETE FROM comments WHERE id = ?', [comment_id]);
+    res.json({ message: 'Comentario eliminado' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al eliminar comentario' });
+  }
+};
