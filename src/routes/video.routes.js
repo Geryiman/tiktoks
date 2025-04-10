@@ -2,29 +2,31 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const {
-  uploadVideo,
-  getAllVideos,
-  getVideoById,
-  deleteVideo
-} = require('../controllers/video.controller');
 
-// Configuración de Multer para guardar los archivos temporalmente
+const videoController = require('../controllers/video.controller');
+
+// Configuración de multer para recibir archivos de video
 const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const uniqueName = `${Date.now()}-${file.originalname.replace(/\s/g, '')}`;
-    cb(null, uniqueName);
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Asegúrate de que esta carpeta exista
   },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
 });
 
 const upload = multer({ storage });
 
-// Endpoints
-router.post('/upload', upload.single('video'), uploadVideo); // ✅ Subir video
-router.get('/', getAllVideos);                                // ✅ Obtener todos los videos
-router.get('/:id', getVideoById);                             // ✅ Obtener video por ID
-router.delete('/:id', deleteVideo);                           // ✅ Eliminar video
+// Subir video
+router.post('/upload', upload.single('video'), videoController.uploadVideo);
+
+// Obtener todos los videos
+router.get('/', videoController.getAllVideos);
+
+// Obtener video por ID
+router.get('/:id', videoController.getVideoById);
+
+// Eliminar video por ID
+router.delete('/:id', videoController.deleteVideo);
 
 module.exports = router;

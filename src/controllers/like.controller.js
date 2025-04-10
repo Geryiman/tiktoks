@@ -1,8 +1,13 @@
 const db = require('../db');
 
-// Dar o quitar like
+// Dar o quitar like basado en user_id
 exports.toggleLike = async (req, res) => {
   const { video_id, user_id } = req.body;
+
+  if (!video_id || !user_id) {
+    return res.status(400).json({ error: 'Faltan campos obligatorios' });
+  }
+
   try {
     const [existing] = await db.query(
       'SELECT * FROM likes WHERE video_id = ? AND user_id = ?',
@@ -10,10 +15,16 @@ exports.toggleLike = async (req, res) => {
     );
 
     if (existing.length > 0) {
-      await db.query('DELETE FROM likes WHERE video_id = ? AND user_id = ?', [video_id, user_id]);
+      await db.query(
+        'DELETE FROM likes WHERE video_id = ? AND user_id = ?',
+        [video_id, user_id]
+      );
       return res.json({ liked: false });
     } else {
-      await db.query('INSERT INTO likes (video_id, user_id) VALUES (?, ?)', [video_id, user_id]);
+      await db.query(
+        'INSERT INTO likes (video_id, user_id) VALUES (?, ?)',
+        [video_id, user_id]
+      );
       return res.json({ liked: true });
     }
   } catch (err) {
@@ -37,9 +48,14 @@ exports.getLikesCount = async (req, res) => {
   }
 };
 
-// Saber si un usuario ya dio like a un video
+// Verificar si el usuario ya dio like
 exports.userLikedVideo = async (req, res) => {
   const { video_id, user_id } = req.query;
+
+  if (!video_id || !user_id) {
+    return res.status(400).json({ error: 'Faltan parámetros' });
+  }
+
   try {
     const [rows] = await db.query(
       'SELECT * FROM likes WHERE video_id = ? AND user_id = ?',

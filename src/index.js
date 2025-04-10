@@ -21,10 +21,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/comments', commentRoutes);
 
+
 app.get('/', (req, res) => {
   res.send('Bienvenido a la API de TikTok App');
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
