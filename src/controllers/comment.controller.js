@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../config/db');
 const moment = require('moment');
 moment.locale('es'); // Para mostrar "hace 5 minutos", etc.
 

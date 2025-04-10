@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../config/db');
 
 // Dar o quitar like basado en user_id
 exports.toggleLike = async (req, res) => {
