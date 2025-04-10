@@ -3,7 +3,7 @@ const ffmpegPath = require('ffmpeg-static');
 const path = require('path');
 const axios = require('axios');
 const fs = require('fs');
-const db = require('../config/db');
+const db = require('../db');
 const uploadToCloudflare = require('../services/cloudflare.service');
 
 require('dotenv').config();

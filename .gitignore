@@ -1,10 +1,2 @@
 /node_modules
-dist
 package-lock.json   
-yarn.lock
-*.log
-*.tsbuildinfo
-*.js
-*.js.map
-*.d.ts
-

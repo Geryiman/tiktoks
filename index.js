@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 
-const db = require('./src/config/db'); // conexión a MySQL
+const db = require('./src/db'); // conexión a MySQL
 const videoRoutes = require('./src/routes/video.routes');
 const authRoutes = require('./src/routes/auth.routes');
 const likeRoutes = require('./src/routes/like.routes');

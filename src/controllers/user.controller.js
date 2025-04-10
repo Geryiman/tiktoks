@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../db');
 
 exports.registerUser = async (req, res) => {
   const { username, email, password } = req.body;
