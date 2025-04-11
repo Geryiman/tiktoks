@@ -10,16 +10,17 @@ const authRoutes = require('./src/routes/auth.routes');
 const likeRoutes = require('./src/routes/like.routes');
 const commentRoutes = require('./src/routes/comment.routes');
 
-
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+// 🚨 Aquí está la corrección
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100mb', parameterLimit: 100000 }));
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Rutas
